@@ -1,0 +1,19 @@
+$script = <<-SCRIPT
+    yum update httpd
+    yum install -y httpd
+    systemctl start httpd
+SCRIPT
+
+Vagrant.configure("2") do |config|
+  
+  config.vm.define "Ubuntu" do |ubuntu|
+    ubuntu.vm.box = "ubuntu/bionic64"
+  end
+  
+  config.vm.define "Centos" do |centos|
+      centos.vm.box = "centos/7"
+      centos.vm.provision "shell", inline: $script
+      centos.vm.network "forwarded_port", guest: 80, host: 8080
+  end
+  
+end
