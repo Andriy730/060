@@ -2,8 +2,6 @@ Vagrant.configure("2") do |config|
   
   config.vm.define "Ubuntu" do |ubuntu|
     ubuntu.vm.box = "ubuntu/bionic64"
-    ubuntu.vm.provision "file", source: "./atlassian-confluence-7.3.1-x64.bin", destination: "atlassian-confluence-7.3.1-x64.bin"
-    ubuntu.vm.provision "file", source: "./5.1.48.tar.gz", destination: "5.1.48.tar.gz"
     ubuntu.vm.provision "shell", "path": "confluence_install.sh"
     ubuntu.vm.provision "shell", "path": "mysql_install.sh"
     ubuntu.vm.network "forwarded_port", guest: 8080, host: 8080
